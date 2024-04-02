@@ -1,0 +1,118 @@
+﻿<Page x:Class="DataGridDashboard.View.PageProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DataGridDashboard.View"
+      xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      mc:Ignorable="d" 
+      d:DesignHeight="780" d:DesignWidth="880"
+      Title="PageProduct">
+
+
+    <Page.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </Page.Resources>
+
+    <Border Background="#eff2f7" 
+            CornerRadius="30" 
+            MouseDown="Border_MouseDown" 
+            MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+
+            <!--Main Section-->
+            <Grid Grid.Column="1" Margin="30,20,20,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" MinHeight="86"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto" MinHeight="21"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="157*"/>
+                    <RowDefinition Height="49*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <!--SearchTextbox-->
+                <!--
+                <Grid Width="300" HorizontalAlignment="Left">
+                    <TextBlock Margin="20 0" VerticalAlignment="Center" Foreground="#b0b9c6" IsHitTestVisible="False"
+                               Panel.ZIndex="1" Text="Search here ..." Visibility="{Binding ElementName=txtSearch, Converter={StaticResource BoolToVis}}"/>
+                    <TextBox x:Name="txtSearch" Style="{StaticResource textBoxSearch}"/>
+                    <Icon:PackIconMaterial Kind="Magnify" Width="15" Height="15" 
+                                           VerticalAlignment="Center" Margin="0 0 15 0" 
+                                           Foreground="#b0b9c6" HorizontalAlignment="Right"/>
+                </Grid>-->
+
+                <!--Page Title-->
+                <TextBlock Grid.Row="1" FontSize="32" FontWeight="SemiBold" Margin="0,20,0,23"
+                           HorizontalAlignment="Center" Foreground="#6A662F" Text="Список продуктов" Width="674"/>
+                <!--Add button-->
+                <Button Style="{StaticResource addButton}" Margin="0,36,0,15" Grid.Row="1" Width="150">
+                    <StackPanel Orientation="Horizontal">
+                        <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" 
+                           Width="11" Height="11" Margin="0 1 8 0"/>
+                        <TextBlock><Run Language="ru-ru" Text="Новый продукт"/></TextBlock>
+                    </StackPanel>
+                </Button>
+
+                <!--Separator-->
+                <Separator Grid.Row="3" Background="#CDA96A" Margin="0,20,0,10"/>
+
+                <!--Counter Title-->
+                <TextBlock Grid.Row="4" FontSize="18" FontWeight="SemiBold"
+                           Foreground="#121518" HorizontalAlignment="Left" VerticalAlignment="Center" Height="24" Width="5"><Run Text=""/><Run Language="ru-ru" Text=" "/></TextBlock>
+   
+                <!--Members Datagrid-->
+                <DataGrid Style="{DynamicResource DataGridStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" RowStyle="{DynamicResource DataGridRowStyle1}" Grid.Row="5" x:Name="membersDataGrid" SelectionChanged="membersDataGrid_SelectionChanged" Margin="0,10,0,0" Grid.RowSpan="2">
+                    <DataGrid.Columns>
+                        <DataGridCheckBoxColumn CanUserResize="False" Width="auto" ElementStyle="{StaticResource CheckBoxStyle1}">
+                            <DataGridCheckBoxColumn.HeaderTemplate>
+                                <DataTemplate>
+                                    <CheckBox Style="{StaticResource CheckBoxStyle1}"/>
+                                </DataTemplate>
+                            </DataGridCheckBoxColumn.HeaderTemplate>
+                        </DataGridCheckBoxColumn>
+
+                        <DataGridTextColumn Header="#" IsReadOnly="True" CanUserResize="False" Width="40" Binding="{Binding Number}"/>
+                        <DataGridTemplateColumn Header="Продукт" IsReadOnly="True" Width="510">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Border Width="25" Height="25" CornerRadius="30" Margin="0 0 10 0" Background="{Binding BgColor}">
+                                            <TextBlock Text="{Binding Character}" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White" Margin="0 0 0 1"/>
+                                        </Border>
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                        <DataGridTemplateColumn Header="Калорийность на 100 гр." IsReadOnly="True" Width="180">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button Style="{StaticResource gridEditButton}">
+                                            <Icon:PackIconMaterial Kind="PencilOutline" Style="{StaticResource gridButtonicon}"/>
+                                        </Button>
+                                        <Button Style="{StaticResource gridRemoveButton}" Margin="50 0 0 0">
+                                            <Icon:PackIconMaterial Kind="DeleteOutline" Style="{StaticResource gridButtonicon}"/>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Page>
